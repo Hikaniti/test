@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>count</title>
+</head>
+<body>
+    <h1>宮澤緒士カウンター</h1>
+    <p></p>
+    <button>クリック！</button>
+
+    <script src="app.js"></script>
+</body>
+</html>
+<script>
+
+//要素の取得
+const number = document.querySelector('p');
+const countButton = document.querySelector('button');
+
+//ページ読み込み時の処理
+window.addEventListener("load",()=>{
+   //Local Storageの値を読み込み
+    var jsonCount = localStorage.getItem('storage'); //【※1】
+    count = JSON.parse(jsonCount) //【※2】
+
+   //読み込んだcountがnull（カウントなし）の場合はHTMLの<P>を0に書き換え
+    if(!count){  
+        number.innerHTML = 0;
+   //nullでない場合はHTMLの<P>をcountの値に書き換え
+    }else{
+        number.innerHTML = count;
+    }
+});
+
+//ボタンがクリックされたときの処理
+countButton.addEventListener('click',function(){
+    count ++;
+    number.innerHTML = count; //HTMLの<p>をcountの値に書き換え
+
+   //Local Storageに値を保存
+    jsonCount = JSON.stringify(count); //【※3】
+    localStorage.setItem('storage',jsonCount); //【※4】
+});
+
+</script>
+<style>
+button{
+width:auto;
+color:black;
+backglound-color:yellow;
+height:50px;
+font-size:18px;
+}
+
+p{
+font-size:40px;
+}
+<style>
